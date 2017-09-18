@@ -11,6 +11,7 @@ export const EDIT_POST = 'EDIT_POST';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const VOTE_FOR_COMMENT = 'VOTE_FOR_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DELETE_COMMENTS_BY_PARENT = 'DELETE_COMMENTS_BY_PARENT';
 
 function getActionCreator(type) {
   return ({ ...args }) => ({
@@ -32,4 +33,5 @@ export const
   editPost           = getActionCreator(EDIT_POST), // { id, ...data }
   addComment         = getActionCreator(ADD_COMMENT), // { id, timestamp, body, author, parentId }
   voteForComment     = getActionCreator(VOTE_FOR_COMMENT), // { id, option }
-  deleteComment      = getActionCreator(DELETE_COMMENT); // { id, option }
+  deleteComment      = getActionCreator(DELETE_COMMENT), // { id, option }
+  deleteCommentsByParent      = getActionCreator(DELETE_COMMENTS_BY_PARENT); // { parentId }
