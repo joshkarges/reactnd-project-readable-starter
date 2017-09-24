@@ -1,4 +1,3 @@
-export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';
 export const GET_POSTS_BY_CATEGORY = 'GET_POSTS_BY_CATEGORY';
 export const GET_POST_BY_ID = 'GET_POST_BY_ID';
@@ -21,7 +20,6 @@ function getActionCreator(type) {
 }
 
 export const
-  getAllCategories   = getActionCreator(GET_ALL_CATEGORIES),
   getAllPosts        = getActionCreator(GET_ALL_POSTS),
   getPostsByCategory = getActionCreator(GET_POSTS_BY_CATEGORY),
   getPostById        = getActionCreator(GET_POST_BY_ID),

@@ -1,24 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import reducer from './reducers';
+import configureStore from './store/configureStore';
 
-const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  // composeEnhancers(
-  //   applyMiddleware(logger)
-  // )
-);
+const store = configureStore();
 
 console.log(store.getState());
 
-ReactDOM.render(<Provider store={store}>
-    <App />
-  </Provider>,
+ReactDOM.render(
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root'));
 registerServiceWorker();
