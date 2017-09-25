@@ -1,5 +1,6 @@
+import { combineReducers } from 'redux';
+import { getIsLoadingReducer, getFailureReducer } from './util';
 import {
-  GET_ALL_POSTS,
   GET_POSTS_BY_CATEGORY,
   GET_POST_BY_ID,
   ADD_POST,
@@ -8,7 +9,9 @@ import {
   EDIT_POST
 } from '../actions';
 
-export default function posts(state={}, action) {
+import { SUCCESS_FETCHING_POSTS } from '../actions/posts';
+
+function posts(state={}, action) {
   switch (action.type) {
     case ADD_POST:
       return {
@@ -42,10 +45,17 @@ export default function posts(state={}, action) {
           ...action
         }
       }
-    case GET_ALL_POSTS:
+    case SUCCESS_FETCHING_POSTS:
+      return action.data;
     case GET_POSTS_BY_CATEGORY:
     case GET_POST_BY_ID:
     default:
       return state;
   }
 }
+
+export default combineReducers({
+  posts,
+  isLoading: getIsLoadingReducer('posts'),
+  failure: getFailureReducer('posts')
+});

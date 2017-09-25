@@ -28,11 +28,7 @@ class CategoriesView extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    categories: state.categories.data,
-    isLoading: state.categories.isLoading,
-    hasErrored: state.categories.hasErrored
-  };
+  return state.categories;
 };
 
 const mapDispatchToProps = (dispatch) => {
