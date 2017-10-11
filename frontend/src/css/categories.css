@@ -1,0 +1,39 @@
+.categories-list {
+  display: flex;
+}
+
+.categories-list-element {
+  margin: 1em;
+  padding: 1em;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+
+.categories-list-element:hover {
+  border: 2px solid black;
+}
+
+.categories-list-element:nth-of-type(6n) {
+  background: red;
+}
+
+.categories-list-element:nth-of-type(6n+1) {
+  background: orange;
+}
+
+.categories-list-element:nth-of-type(6n+2) {
+  background: yellow;
+}
+
+.categories-list-element:nth-of-type(6n+3) {
+  color: white;
+  background: green;
+}
+
+.categories-list-element:nth-of-type(6n+4) {
+  background: blue;
+}
+
+.categories-list-element:nth-of-type(6n+5) {
+  background: violet;
+}

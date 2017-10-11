@@ -4,11 +4,10 @@ const url = `${process.env.REACT_APP_BACKEND}/categories`;
 
 const categoriesFetchActions = getFetchingActionCreators('categories', url);
 
-export const FETCH_ALL_CATEGORIES = categoriesFetchActions.FETCH_ALL_CATEGORIES;
 export const IS_LOADING_CATEGORIES = categoriesFetchActions.IS_LOADING_CATEGORIES;
 export const SUCCESS_FETCHING_CATEGORIES = categoriesFetchActions.SUCCESS_FETCHING_CATEGORIES;
 export const FAILURE_FETCHING_CATEGORIES = categoriesFetchActions.FAILURE_FETCHING_CATEGORIES;
-export const fetchAllCategories = categoriesFetchActions.fetchAllCategories;
+export const fetchCategories = categoriesFetchActions.fetchCategories;
 
 // export const SUCCEED_FETCHING_CATEGORIES = 'SUCCEED_FETCHING_CATEGORIES';
 // export const FAIL_FETCHING_CATEGORIES = 'FAIL_FETCHING_CATEGORIES';

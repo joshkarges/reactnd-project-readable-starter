@@ -2,14 +2,16 @@ import { combineReducers } from 'redux';
 import { getIsLoadingReducer, getFailureReducer } from './util';
 import {
   GET_POSTS_BY_CATEGORY,
-  GET_POST_BY_ID,
   ADD_POST,
   DELETE_POST,
   VOTE_FOR_POST,
   EDIT_POST
 } from '../actions';
 
-import { SUCCESS_FETCHING_POSTS } from '../actions/posts';
+import {
+  SUCCESS_FETCHING_ALL_POSTS,
+  SUCCESS_FETCHING_POST_BY_ID
+} from '../actions/posts';
 
 function posts(state={}, action) {
   switch (action.type) {
@@ -45,10 +47,10 @@ function posts(state={}, action) {
           ...action
         }
       }
-    case SUCCESS_FETCHING_POSTS:
+    case SUCCESS_FETCHING_ALL_POSTS:
       return action.data;
     case GET_POSTS_BY_CATEGORY:
-    case GET_POST_BY_ID:
+    case SUCCESS_FETCHING_POST_BY_ID:
     default:
       return state;
   }

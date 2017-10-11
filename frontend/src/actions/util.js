@@ -13,13 +13,17 @@ export function getFetchingActionCreators(name, url) {
   let failure = getActionKeysAndCreator('FAILURE_FETCHING_' + upperCaseName);
   let success = getActionKeysAndCreator('SUCCESS_FETCHING_' + upperCaseName);
   return {
-    ...getActionTypeAndCreator(loading),
-    ...getActionTypeAndCreator(failure),
-    ...getActionTypeAndCreator(success),
-    [_.camelCase('FETCH_ALL_' + upperCaseName)]: () => {
+    ...getActionTypeAndCreatorFromKeys(loading),
+    ...getActionTypeAndCreatorFromKeys(failure),
+    ...getActionTypeAndCreatorFromKeys(success),
+    [_.camelCase('FETCH_' + upperCaseName)]: (opts) => {
       return (dispatch) =>  {
         dispatch(loading.creator({ isLoading: true }));
-        fetch(url, { headers: { 'Authorization': 'whatever-you-want' } })
+        var parameterizedUrl = url;
+        for (var key in opts) {
+          parameterizedUrl.replace(':' + key, opts[key]);
+        }
+        fetch(parameterizedUrl, { headers: { 'Authorization': 'whatever-you-want' } })
           .then((response) => {
             if (!response.ok) {
                 throw Error(response.statusText);
@@ -35,10 +39,14 @@ export function getFetchingActionCreators(name, url) {
   };
 }
 
+export function getActionTypeAndCreator(str) {
+  const kac = getActionKeysAndCreator(str);
+  return getActionTypeAndCreatorFromKeys(kac);
+}
 
 //input: getActionKeysAndCreator('IS_LOADING_BLAH')
 //output: {IS_LOADING_BLAH: 'IS_LOADING_BLAH', isLoading: <action creator>}
-function getActionTypeAndCreator(kac) {
+function getActionTypeAndCreatorFromKeys(kac) {
   return {
     [kac.CAP_SNAKE_CASE]: kac.CAP_SNAKE_CASE,
     [kac.camelCase]: kac.creator
