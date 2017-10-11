@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { getIsLoadingReducer, getFailureReducer } from './util';
+import _ from 'lodash';
 import {
   GET_POSTS_BY_CATEGORY,
   ADD_POST,
@@ -29,9 +30,10 @@ function posts(state={}, action) {
         }
       };
     case VOTE_FOR_POST:
-      let newVoteScore = state[action.id].voteScore +
+      let newVoteScore = state[action.id].voteScore + (
         (action.option === 'upVote') ? 1 :
-        (action.option === 'downVote') ? -1 : 0;
+        (action.option === 'downVote') ? -1 : 0
+      );
       return {
         ...state,
         [action.id]: {
@@ -48,7 +50,7 @@ function posts(state={}, action) {
         }
       }
     case SUCCESS_FETCHING_ALL_POSTS:
-      return action.data;
+      return _.keyBy(action.data, 'id');
     case GET_POSTS_BY_CATEGORY:
     case SUCCESS_FETCHING_POST_BY_ID:
     default:

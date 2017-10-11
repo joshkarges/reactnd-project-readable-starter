@@ -9,6 +9,10 @@
 	justify-content: space-around;
 }
 
+.post-list-element:nth-of-type(odd) {
+  background: lightgrey;
+}
+
 .voterator-plus, .voterator-minus {
 	cursor: pointer;
 	width: 20px;
