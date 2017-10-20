@@ -18,14 +18,10 @@ class Voterator extends Component {
   }
 };
 
-const mapStateToProps = (state) => {
-  return state.posts;
-};
-
 const mapDispatchToProps = (dispatch, props) => {
   return {
     upVote: () => dispatch(voteForPost({ id: props.post.id, option: 'upVote' })),
     downVote: () => dispatch(voteForPost({ id: props.post.id, option: 'downVote' }))
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Voterator);
+export default connect(null, mapDispatchToProps)(Voterator);

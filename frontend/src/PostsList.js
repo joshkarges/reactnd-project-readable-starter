@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PostListElement from './PostListElement.js';
-import { fetchAllPosts } from './actions/posts';
+import { postsFetchingActions } from './actions/posts';
 import _ from 'lodash';
 
 import './css/posts.css';
@@ -26,9 +26,9 @@ const mapStateToProps = (state) => {
   return state.posts;
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchAllPosts: () => dispatch(fetchAllPosts())
+    fetchAllPosts: () => dispatch(postsFetchingActions[props.fetchAction](props.fetchOpts))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
