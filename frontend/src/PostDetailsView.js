@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPostById } from './actions/posts';
+import Voterator from './Voterator';
 
 class PostDetailsView extends Component {
+  componentDidMount() {
+    this.props.fetchPostById();
+  }
+
   render() {
     return (
       <div className="post-details-view">
@@ -24,12 +29,14 @@ class PostDetailsView extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return state.posts[props.match.params.post];
+  return state.posts.posts[props.match.params.post];
 };
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchPostById: () => dispatch(fetchPostById({ id: props.match.params.post }))
+    fetchPostById: () => {
+      dispatch(fetchPostById({ id: props.match.params.post }))
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetailsView);

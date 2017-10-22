@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CategoriesList from './CategoriesList.js';
 import PostsList from './PostsList.js';
 import { GET_POSTS_BY_CATEGORY } from './actions/posts';
 

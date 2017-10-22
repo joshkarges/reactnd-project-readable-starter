@@ -8,7 +8,7 @@ import './css/posts.css';
 
 class PostsList extends Component {
   componentDidMount() {
-    this.props.fetchAllPosts();
+    this.props.fetchRelevantPosts();
   }
 
   render() {
@@ -28,7 +28,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchAllPosts: () => dispatch(postsFetchingActions[props.fetchAction](props.fetchOpts))
+    fetchRelevantPosts: () => {
+      dispatch(postsFetchingActions[props.fetchAction](props.fetchOpts))
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostsList);

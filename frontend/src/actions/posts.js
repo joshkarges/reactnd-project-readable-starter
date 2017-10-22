@@ -37,7 +37,7 @@ export const voteForPost = getActionCreator(VOTE_FOR_POST); // {id: [post.id], o
 // FETCH POSTS BY CATEGORY
 const posts_by_category_url = `${process.env.REACT_APP_BACKEND}/:category/posts`;
 
-const fetchPostsByCategoryActions = getFetchingActionCreators('post_by_id', post_by_id_url);
+const fetchPostsByCategoryActions = getFetchingActionCreators('posts_by_category', posts_by_category_url);
 
 export const IS_LOADING_POSTS_BY_CATEGORY = fetchPostsByCategoryActions.IS_LOADING_POSTS_BY_CATEGORY;
 export const SUCCESS_FETCHING_POSTS_BY_CATEGORY = fetchPostsByCategoryActions.SUCCESS_FETCHING_POSTS_BY_CATEGORY;

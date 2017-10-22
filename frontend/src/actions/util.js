@@ -21,7 +21,7 @@ export function getFetchingActionCreators(name, url) {
         dispatch(loading.creator({ isLoading: true }));
         var parameterizedUrl = url;
         for (var key in opts) {
-          parameterizedUrl.replace(':' + key, opts[key]);
+          parameterizedUrl = parameterizedUrl.replace(':' + key, opts[key]);
         }
         fetch(parameterizedUrl, { headers: { 'Authorization': 'whatever-you-want' } })
           .then((response) => {

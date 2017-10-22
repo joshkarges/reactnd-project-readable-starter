@@ -16,10 +16,11 @@ import {
 
 function posts(state={}, action) {
   switch (action.type) {
+    case SUCCESS_FETCHING_POST_BY_ID:
     case ADD_POST:
       return {
         ...state,
-        [action.id]: action
+        [action.data.id]: action.data
       };
     case DELETE_POST: // TODO: make sure the parentDeleted property is true for all the comments
       return {
@@ -52,7 +53,6 @@ function posts(state={}, action) {
     case SUCCESS_FETCHING_ALL_POSTS:
       return _.keyBy(action.data, 'id');
     case GET_POSTS_BY_CATEGORY:
-    case SUCCESS_FETCHING_POST_BY_ID:
     default:
       return state;
   }
