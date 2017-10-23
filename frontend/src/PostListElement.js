@@ -1,5 +1,7 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Voterator from './Voterator';
 
 class PostListElement extends Component {
@@ -10,6 +12,7 @@ class PostListElement extends Component {
           <div className="post-list-element-title-category">
             <p>{this.props.post.title}</p>
             <p>{this.props.post.category}</p>
+            <p>{this.props.post.numComments}</p>
           </div>
           <div className="post-list-element-author-time">
             <p>{this.props.post.author}</p>
@@ -22,4 +25,13 @@ class PostListElement extends Component {
   }
 };
 
-export default PostListElement
+const mapStateToProps = (state, props) => {
+  return {
+    post: {
+      ...props.post,
+      numComments: _.filter(state.comments.comments, ['parentId', props.post.id]).length
+    }
+  };
+}
+
+export default connect(mapStateToProps)(PostListElement);
