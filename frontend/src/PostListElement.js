@@ -12,7 +12,7 @@ class PostListElement extends Component {
           <div className="post-list-element-title-category">
             <p>{this.props.post.title}</p>
             <p>{this.props.post.category}</p>
-            <p>{this.props.post.numComments}</p>
+            <p>{this.props.post.numComments + " comments"}</p>
           </div>
           <div className="post-list-element-author-time">
             <p>{this.props.post.author}</p>

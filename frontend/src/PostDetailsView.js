@@ -1,8 +1,12 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPostById } from './actions/posts';
-import Voterator from './Voterator';
+import {
+  fetchPostById,
+  editPost,
+  deletePost
+} from './actions/posts';
+import PostListElement from './PostListElement';
 
 class PostDetailsView extends Component {
   componentDidMount() {
@@ -12,21 +16,16 @@ class PostDetailsView extends Component {
   render() {
     return (
       <div className="post-details-view">
-        <div className="post-details-title-category">
-          <p>{this.props.title}</p>
-          <p>{this.props.category}</p>
+        <div className="post-details-content">
+          <PostListElement post={this.props}/>
+          <div className="post-details-content-body">
+            <p>{this.props.body}</p>
+          </div>
         </div>
-        <div className="post-details-author-time">
-          <p>{this.props.author}</p>
-          <p>{new Date(this.props.timestamp).toString()}</p>
+        <div className="post-details-buttons">
+          <button className="post-details-buttons-edit" onClick={this.props.editPost}>EDIT</button>
+          <button className="post-details-buttons-delete" onClick={this.props.deletePost}>DELETE</button>
         </div>
-        <div className="post-details-body">
-          <p>{this.props.body}</p>
-        </div>
-        <div className="post-details-comments">
-          <p>{this.props.commentsForPost.length}</p>
-        </div>
-        <Voterator post={this.props}/>
       </div>
     );
   }
@@ -42,9 +41,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchPostById: () => {
-      dispatch(fetchPostById({ id: props.match.params.post }))
-    }
+    fetchPostById: () => dispatch(fetchPostById({ id: props.match.params.post })),
+    editPost: () => dispatch(editPost(props)),
+    deletePost: () => dispatch(deletePost({id: props.match.params.post}))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetailsView);

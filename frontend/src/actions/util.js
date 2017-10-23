@@ -23,6 +23,7 @@ export function getFetchingActionCreators(name, url, method) {
         method = method || 'GET';
         const parameterizedUrl = parameterizeUrl(url, opts);
         const fetchAttrs = {
+          method: method,
           headers: {
             'Authorization': 'whatever-you-want',
             'Content-Type': 'application/json'
