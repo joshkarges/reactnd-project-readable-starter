@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PostListElement from './PostListElement.js';
 import { postsFetchingActions } from './actions/posts';
-import { fetchCommentsForPost } from './actions/comments';
+import { fetchCommentsByPost } from './actions/comments';
 import _ from 'lodash';
 
 import './css/posts.css';
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch, props) => {
     fetchRelevantPosts: () => {
       dispatch(postsFetchingActions[props.fetchAction](props.fetchOpts))
       .then((posts) => {
-        posts.data.forEach(p => dispatch(fetchCommentsForPost, { id: p.id }))
+        posts.data.forEach(p => dispatch(fetchCommentsByPost({ id: p.id })))
       })
     }
   };

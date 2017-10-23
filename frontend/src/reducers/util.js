@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export function getAttemptingReducer(name, initialValue = false) {
   return function isAttempting(state = initialValue, action) {
     switch (action.type) {
@@ -18,4 +20,12 @@ export function getFailureReducer(name, initialValue = false) {
         return state;
     }
   };
+}
+
+export function getAllAttemptingAndFailureReducers(actionList) {
+  return actionList.reduce((p, action) => ({
+      ...p,
+      ['attempting' + _.camelCase(action)]: getAttemptingReducer(action),
+      ['failure' + _.camelCase(action)]: getFailureReducer(action)
+    }), {});
 }

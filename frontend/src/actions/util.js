@@ -20,15 +20,18 @@ export function getFetchingActionCreators(name, url, method) {
     [_.camelCase(upperCaseName)]: (opts)=>{
       return (dispatch) => {
         dispatch(attempting.creator({ isAttempting: true }));
-        var parameterizedUrl = parameterizeUrl(url, opts);
-        return fetch(parameterizedUrl, {
-          method: method || 'GET',
+        method = method || 'GET';
+        const parameterizedUrl = parameterizeUrl(url, opts);
+        const fetchAttrs = {
           headers: {
             'Authorization': 'whatever-you-want',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(opts)
-        })
+        };
+        if (method !== 'GET' && method !== 'HEAD') {
+          fetchAttrs.body = JSON.stringify(opts)
+        }
+        return fetch(parameterizedUrl, fetchAttrs)
         .then((response) => {
           if (!response.ok) throw Error(response.statusText);
           dispatch(attempting.creator({ isAttempting: false }));
@@ -36,7 +39,10 @@ export function getFetchingActionCreators(name, url, method) {
         })
         .then(response => response.json())
         .then(data => dispatch(success.creator({ data })))
-        .catch(() => dispatch(failure.creator({ failure: true })));
+        .catch((err) => {
+          console.log(err)
+          return dispatch(failure.creator({ failure: true }))
+        });
       }
     }
   };

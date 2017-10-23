@@ -1,6 +1,6 @@
-import { combineReducers } from 'redux';
-import { getAttemptingReducer, getFailureReducer } from './util';
 import _ from 'lodash';
+import { combineReducers } from 'redux';
+import { getAllAttemptingAndFailureReducers } from './util';
 import {
   ADD_POST,
   DELETE_POST,
@@ -62,16 +62,12 @@ function posts(state={}, action) {
   }
 }
 
-const attemptingAndFailureReducers = [
+const attemptingAndFailureReducers = getAllAttemptingAndFailureReducers([
     FETCH_ALL_POSTS,
     FETCH_POST_BY_ID,
     FETCH_POSTS_BY_CATEGORY,
     VOTE_FOR_POST
-  ].reduce((p, action) => ({
-      ...p,
-      ['attempting' + _.camelCase(action)]: getAttemptingReducer(action),
-      ['failure' + _.camelCase(action)]: getFailureReducer(action)
-    }), {})
+  ]);
 
 export default combineReducers({
   posts,

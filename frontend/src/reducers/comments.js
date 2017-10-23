@@ -1,19 +1,24 @@
 import _ from 'lodash';
+import { combineReducers } from 'redux';
 import {
-  GET_COMMENTS_BY_POST,
-  GET_COMMENT_BY_ID,
+  FETCH_COMMENTS_BY_POST,
+  FETCH_COMMENTS_BY_ID,
   ADD_COMMENT,
   VOTE_FOR_COMMENT,
   DELETE_COMMENT,
-} from '../actions';
+  SUCCESS_FETCH_COMMENTS_BY_POST,
+  SUCCESS_FETCH_COMMENTS_BY_ID
+} from '../actions/comments';
 
 import {
   DELETE_POST
 } from '../actions/posts';
 
-export default function comments(state={}, action) {
+import { getAllAttemptingAndFailureReducers } from './util';
+
+function comments(state={}, action) {
   switch (action.type) {
-    case GET_COMMENT_BY_ID:
+    case SUCCESS_FETCH_COMMENTS_BY_ID:
     case ADD_COMMENT:
       return {
         ...state,
@@ -46,7 +51,7 @@ export default function comments(state={}, action) {
           }
         };
       }, state);
-    case GET_COMMENTS_BY_POST:
+    case SUCCESS_FETCH_COMMENTS_BY_POST:
       return {
         ...state,
         ..._.keyBy(action.data, 'id')
@@ -55,3 +60,13 @@ export default function comments(state={}, action) {
       return state;
   }
 }
+
+const attemptingAndFailureReducers = getAllAttemptingAndFailureReducers([
+  FETCH_COMMENTS_BY_ID,
+  FETCH_COMMENTS_BY_POST
+]);
+
+export default combineReducers({
+  comments,
+  ...attemptingAndFailureReducers
+});
