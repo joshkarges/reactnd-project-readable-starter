@@ -5,16 +5,33 @@ import { postsFetchingActions } from './actions/posts';
 import _ from 'lodash';
 
 import './css/posts.css';
+import './css/input.css';
 
 class PostsList extends Component {
+  state = {
+    sortByKey: 'timestamp'
+  }
+
   componentDidMount() {
     this.props.fetchRelevantPosts();
+  }
+
+  updateSorting = (event) => {
+    this.setState({sortByKey: event.target.checked ? 'voteScore' : 'timestamp'});
   }
 
   render() {
     return (
       <div className="posts-list">
-        {_.map(this.props.posts, (post) => (
+        <div className="posts-list-sorter">
+          <label className="posts-list-sorter-label">Date</label>
+          <label className="switch">
+            <input type="checkbox" name="sortBy" onChange={this.updateSorting}/>
+            <span className="slider"></span>
+          </label>
+          <label className="posts-list-sorter-label">Score</label>
+        </div>
+        {_.map(_.sortBy(this.props.posts, this.state.sortByKey), (post) => (
           <PostListElement key={post.id} post={post}/>
         ))}
       </div>

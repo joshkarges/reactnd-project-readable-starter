@@ -4,12 +4,22 @@
   width: 100%;
 }
 
+.posts-list-sorter {
+  display: flex;
+  align-items: center;
+  margin-left: 10%
+}
+
+.posts-list-sorter-label {
+  margin: 1em;
+}
+
 .post-list-element {
   display: flex;
   justify-content: space-between;
   padding: 0 10%;
-  border-top: 1px solid white;
-  border-bottom: 1px solid lightgrey;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid white;
 }
 
 .post-list-element:hover {
