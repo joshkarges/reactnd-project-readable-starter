@@ -22,8 +22,10 @@ class PostsList extends Component {
   }
 };
 
-const mapStateToProps = (state) => {
-  return state.posts;
+const mapStateToProps = (state, props) => {
+  return {
+    posts: _.filter(state.posts.posts, props.fetchOpts)
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchCategories } from './actions/categories';
 
 import './css/App.css';
@@ -19,9 +20,9 @@ class CategoriesList extends Component {
     return (
       <div className="categories-list">
         {this.props.categories.map((category) => (
-          <div className="categories-list-element" key={category.name}>
+          <Link to={`/${category.path}`} className="categories-list-element" key={category.name}>
             {category.name}
-          </div>
+          </Link>
         ))}
       </div>
     );

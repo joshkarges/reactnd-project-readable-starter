@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { voteForPost } from './actions/posts';
+import { postVoteForPost } from './actions/posts';
 
 class Voterator extends Component {
   render() {
@@ -9,7 +9,9 @@ class Voterator extends Component {
         <div className="voterator-plus" onClick={this.props.upVote}>
           +
         </div>
-        {this.props.post.voteScore}
+        <div className="voterator-score">
+          {this.props.post.voteScore}
+        </div>
         <div className="voterator-minus" onClick={this.props.downVote}>
           -
         </div>
@@ -20,8 +22,10 @@ class Voterator extends Component {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    upVote: () => dispatch(voteForPost({ id: props.post.id, option: 'upVote' })),
-    downVote: () => dispatch(voteForPost({ id: props.post.id, option: 'downVote' }))
+    upVote: () => {
+      dispatch(postVoteForPost({ id: props.post.id, option: 'upVote' }))
+    },
+    downVote: () => dispatch(postVoteForPost({ id: props.post.id, option: 'downVote' }))
   };
 };
 export default connect(null, mapDispatchToProps)(Voterator);

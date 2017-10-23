@@ -8,6 +8,17 @@
   display: flex;
   justify-content: space-between;
   padding: 0 10%;
+  border-top: 1px solid white;
+  border-bottom: 1px solid lightgrey;
+}
+
+.post-list-element:hover {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.post-list-element:nth-of-type(odd) {
+  background: lightgrey;
 }
 
 .post-list-element-link {
@@ -18,8 +29,8 @@
   text-decoration: none;
 }
 
-.post-list-element:nth-of-type(odd) {
-  background: lightgrey;
+.post-list-element-link:hover {
+  text-shadow: 1px 1px 1px black;
 }
 
 .post-list-element-title-category {
@@ -38,6 +49,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.voterator:hover > .voterator-score{
+  text-shadow: 1px 1px 1px black;
+}
+
+.voterator-plus:hover, .voterator-minus:hover {
+  text-shadow: 1px 1px 2px black;
 }
 
 .voterator-plus, .voterator-minus {

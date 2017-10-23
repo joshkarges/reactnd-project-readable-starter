@@ -3,14 +3,18 @@
 }
 
 .categories-list-element {
-  margin: 1em;
+  margin: 10px;
   padding: 1em;
   border-radius: 3px;
   border: 1px solid black;
+  color: black;
+  text-decoration: none;
 }
 
 .categories-list-element:hover {
   border: 2px solid black;
+  margin: 9px;
+  text-shadow: 1px 1px 1px black;
 }
 
 .categories-list-element:nth-of-type(6n) {
@@ -26,7 +30,7 @@
 }
 
 .categories-list-element:nth-of-type(6n+3) {
-  color: white;
+  /*color: white;*/
   background: green;
 }
 
