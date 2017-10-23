@@ -1,39 +1,41 @@
+import _ from 'lodash';
 import {
   GET_COMMENTS_BY_POST,
   GET_COMMENT_BY_ID,
   ADD_COMMENT,
   VOTE_FOR_COMMENT,
   DELETE_COMMENT,
-  DELETE_COMMENTS_BY_PARENT
 } from '../actions';
+
+import {
+  DELETE_POST
+} from '../actions/posts';
 
 export default function comments(state={}, action) {
   switch (action.type) {
+    case GET_COMMENT_BY_ID:
     case ADD_COMMENT:
       return {
         ...state,
-        [action.id]: action
+        [action.data.id]: action
       };
     case VOTE_FOR_COMMENT:
-      let newVoteScore = state[action.id].voteScore +
-        (action.option === 'upVote') ? 1 :
-        (action.option === 'downVote') ? -1 : 0;
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
-          voteScore: newVoteScore
+        [action.data.id]: {
+          ...state[action.data.id],
+          voteScore: action.data.voteScore
         }
       };
     case DELETE_COMMENT:
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
+        [action.data.id]: {
+          ...state[action.data.id],
           deleted: true
         }
       };
-    case DELETE_COMMENTS_BY_PARENT:
+    case DELETE_POST:
       let commentsFromParent = state.filter(c => (c.parentId === action.parentId));
       return commentsFromParent.reduce((p,c) => {
         return {
@@ -45,7 +47,10 @@ export default function comments(state={}, action) {
         };
       }, state);
     case GET_COMMENTS_BY_POST:
-    case GET_COMMENT_BY_ID:
+      return {
+        ...state,
+        ..._.keyBy(action.data, 'id')
+      };
     default:
       return state;
   }

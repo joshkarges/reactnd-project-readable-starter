@@ -29,8 +29,8 @@ function posts(state={}, action) {
     case DELETE_POST: // TODO: make sure the parentDeleted property is true for all the comments
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
+        [action.data.id]: {
+          ...state[action.data.id],
           deleted: true
         }
       };
@@ -45,9 +45,9 @@ function posts(state={}, action) {
     case EDIT_POST:
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
-          ...action
+        [action.data.id]: {
+          ...state[action.data.id],
+          ...action.data
         }
       };
     case SUCCESS_FETCH_POSTS_BY_CATEGORY:

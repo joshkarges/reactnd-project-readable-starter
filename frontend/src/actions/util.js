@@ -21,7 +21,7 @@ export function getFetchingActionCreators(name, url, method) {
       return (dispatch) => {
         dispatch(attempting.creator({ isAttempting: true }));
         var parameterizedUrl = parameterizeUrl(url, opts);
-        fetch(parameterizedUrl, {
+        return fetch(parameterizedUrl, {
           method: method || 'GET',
           headers: {
             'Authorization': 'whatever-you-want',
