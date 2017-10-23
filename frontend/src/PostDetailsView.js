@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPostById } from './actions/posts';
@@ -22,6 +23,9 @@ class PostDetailsView extends Component {
         <div className="post-details-body">
           <p>{this.props.body}</p>
         </div>
+        <div className="post-details-comments">
+          <p>{this.props.commentsForPost.length}</p>
+        </div>
         <Voterator post={this.props}/>
       </div>
     );
@@ -29,7 +33,11 @@ class PostDetailsView extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return state.posts.posts[props.match.params.post];
+  const commentsForPost = _.filter(state.comments.comments, ['parentId', props.match.params.post]);
+  return {
+    ...state.posts.posts[props.match.params.post],
+    commentsForPost: commentsForPost
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
