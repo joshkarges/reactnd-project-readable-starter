@@ -1,12 +1,5 @@
 import _ from 'lodash';
 
-export function getActionCreator(type) {
-  return ({ ...args }) => ({
-    type: type,
-    ...args
-  });
-}
-
 function parameterizeUrl(url, opts) {
   var parameterizedUrl = url;
   for (var key in opts) {
@@ -15,7 +8,7 @@ function parameterizeUrl(url, opts) {
   return parameterizedUrl;
 }
 
-export function getPostingActionCreator(name, url) {
+export function getFetchingActionCreators(name, url, method) {
   let upperCaseName = name.toUpperCase();
   let attempting = getActionKeysAndCreator('ATTEMPTING_' + upperCaseName);
   let failure = getActionKeysAndCreator('FAILURE_' + upperCaseName);
@@ -24,12 +17,12 @@ export function getPostingActionCreator(name, url) {
     ...getActionTypeAndCreatorFromKeys(attempting),
     ...getActionTypeAndCreatorFromKeys(failure),
     ...getActionTypeAndCreatorFromKeys(success),
-    [_.camelCase('POST_' + upperCaseName)]: (opts)=>{
+    [_.camelCase(upperCaseName)]: (opts)=>{
       return (dispatch) => {
         dispatch(attempting.creator({ isAttempting: true }));
         var parameterizedUrl = parameterizeUrl(url, opts);
         fetch(parameterizedUrl, {
-          method: 'POST',
+          method: method || 'GET',
           headers: {
             'Authorization': 'whatever-you-want',
             'Content-Type': 'application/json'
@@ -49,47 +42,6 @@ export function getPostingActionCreator(name, url) {
   };
 }
 
-export function getFetchingActionCreators(name, url) {
-  let upperCaseName = name.toUpperCase();
-  let loading = getActionKeysAndCreator('IS_LOADING_' + upperCaseName);
-  let failure = getActionKeysAndCreator('FAILURE_FETCHING_' + upperCaseName);
-  let success = getActionKeysAndCreator('SUCCESS_FETCHING_' + upperCaseName);
-  return {
-    ...getActionTypeAndCreatorFromKeys(loading),
-    ...getActionTypeAndCreatorFromKeys(failure),
-    ...getActionTypeAndCreatorFromKeys(success),
-    [_.camelCase('FETCH_' + upperCaseName)]: (opts) => {
-      return (dispatch) =>  {
-        dispatch(loading.creator({ isLoading: true }));
-        var parameterizedUrl = parameterizeUrl(url, opts);
-        fetch(parameterizedUrl, { headers: { 'Authorization': 'whatever-you-want' } })
-          .then((response) => {
-            if (!response.ok) throw Error(response.statusText);
-            dispatch(loading.creator({ isLoading: false }));
-            return response;
-          })
-          .then(response => response.json())
-          .then(data => dispatch(success.creator({ data })))
-          .catch(() => dispatch(failure.creator({ failure: true })));
-      };
-    }
-  };
-}
-
-export function getActionTypeAndCreator(str) {
-  const kac = getActionKeysAndCreator(str);
-  return getActionTypeAndCreatorFromKeys(kac);
-}
-
-//input: getActionKeysAndCreator('IS_LOADING_BLAH')
-//output: {IS_LOADING_BLAH: 'IS_LOADING_BLAH', isLoadingBlah: <action creator>}
-function getActionTypeAndCreatorFromKeys(kac) {
-  return {
-    [kac.CAP_SNAKE_CASE]: kac.CAP_SNAKE_CASE,
-    [kac.camelCase]: kac.creator
-  };
-}
-
 function getActionKeysAndCreator(str) {
   const CAP_SNAKE_CASE = _.snakeCase(str).toUpperCase();
   const camelCase = _.camelCase(CAP_SNAKE_CASE);
@@ -98,4 +50,20 @@ function getActionKeysAndCreator(str) {
     camelCase: camelCase,
     creator: getActionCreator(CAP_SNAKE_CASE)
   };
+}
+
+//input: getActionKeysAndCreator('ATTEMPTING_BLAH')
+//output: {ATTEMPTING_BLAH: 'ATTEMPTING_BLAH', attemptingBlah: <action creator>}
+function getActionTypeAndCreatorFromKeys(kac) {
+  return {
+    [kac.CAP_SNAKE_CASE]: kac.CAP_SNAKE_CASE,
+    [kac.camelCase]: kac.creator
+  };
+}
+
+export function getActionCreator(type) {
+  return ({ ...args }) => ({
+    type: type,
+    ...args
+  });
 }

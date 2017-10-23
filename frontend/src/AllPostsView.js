@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CategoriesList from './CategoriesList.js';
 import PostsList from './PostsList.js';
-import { ALL_POSTS } from './actions/posts';
+import { FETCH_ALL_POSTS } from './actions/posts';
 
 import './css/App.css';
 
@@ -11,7 +11,7 @@ class AllPostsView extends Component {
     return (
       <div className="all-posts">
         <CategoriesList/>
-        <PostsList fetchAction={ALL_POSTS}/>
+        <PostsList fetchAction={FETCH_ALL_POSTS}/>
       </div>
     );
   }

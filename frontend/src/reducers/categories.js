@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
-import { getIsLoadingReducer, getFailureReducer } from './util';
+import { getAttemptingReducer, getFailureReducer } from './util';
 import {
-  SUCCESS_FETCHING_CATEGORIES,
+  FETCH_CATEGORIES,
+  SUCCESS_FETCH_CATEGORIES
 } from '../actions/categories';
 
 function categories(state = [], action) {
   switch (action.type) {
-    case SUCCESS_FETCHING_CATEGORIES:
+    case SUCCESS_FETCH_CATEGORIES:
       return action.data.categories;
     default:
       return state;
@@ -15,6 +16,6 @@ function categories(state = [], action) {
 
 export default combineReducers({
   categories,
-  isLoading: getIsLoadingReducer('categories'),
-  failure: getFailureReducer('categories')
+  isLoading: getAttemptingReducer(FETCH_CATEGORIES),
+  failure: getFailureReducer(FETCH_CATEGORIES)
 })
