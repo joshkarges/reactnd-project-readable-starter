@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import { fetchCommentsByPost } from './comments';
 import {
   getFetchingActionCreators,
 } from './util';
@@ -37,8 +39,23 @@ export const EDIT_POST = 'EDIT_POST';
 const edit_post_url = `${process.env.REACT_APP_BACKEND}/posts/:id`;
 export const { ATTEMPTING_EDIT_POST, SUCCESS_EDIT_POST, FAILURE_EDIT_POST, editPost } = getFetchingActionCreators(EDIT_POST, edit_post_url, 'PUT'); // {id: [post.id], option: 'upVote'|'downVote'};
 
-export const postsFetchingActions = {
-  [FETCH_ALL_POSTS]: fetchAllPosts,
-  [FETCH_POSTS_BY_CATEGORY]: fetchPostsByCategory,
-  [FETCH_POST_BY_ID]: fetchPostById
+export const fetchPostsWithCommentsActions = {
+  [FETCH_ALL_POSTS]: wrapFetchPostActionWithComments(fetchAllPosts),
+  [FETCH_POSTS_BY_CATEGORY]: wrapFetchPostActionWithComments(fetchPostsByCategory),
+  [FETCH_POST_BY_ID]: wrapFetchPostActionWithComments(fetchPostById)
+}
+
+function wrapFetchPostActionWithComments(fpa) {
+  return (opts)=>(
+      (dispatch)=>(
+        dispatch(fpa(opts))
+        .then((posts) => {
+          if (_.isArray(posts.data)) {
+            posts.data.forEach(p => dispatch(fetchCommentsByPost({ id: p.id })))
+          } else {
+            dispatch(fetchCommentsByPost({ id: posts.data.id }))
+          }
+        })
+      )
+    );
 }

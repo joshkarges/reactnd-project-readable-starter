@@ -2,7 +2,8 @@ import _ from 'lodash'
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  fetchPostById,
+  fetchPostsWithCommentsActions,
+  FETCH_POST_BY_ID,
   editPost,
   deletePost
 } from './actions/posts';
@@ -29,7 +30,7 @@ class PostDetailsView extends Component {
         </div>
         <div>
           {this.props.commentsForPost.map((comment) => (
-            <CommentListElement comment={comment}/>
+            <CommentListElement key={comment.id} comment={comment}/>
           ))}
         </div>
       </div>
@@ -47,7 +48,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchPostById: () => dispatch(fetchPostById({ id: props.match.params.post })),
+    fetchPostById: () => dispatch(fetchPostsWithCommentsActions[FETCH_POST_BY_ID]({ id: props.match.params.post })),
     editPost: () => dispatch(editPost(props)),
     deletePost: () => dispatch(deletePost({id: props.match.params.post}))
   };

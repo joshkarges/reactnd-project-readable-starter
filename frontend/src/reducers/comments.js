@@ -5,9 +5,11 @@ import {
   FETCH_COMMENTS_BY_ID,
   ADD_COMMENT,
   VOTE_FOR_COMMENT,
+  EDIT_COMMENT,
   DELETE_COMMENT,
   SUCCESS_FETCH_COMMENTS_BY_POST,
-  SUCCESS_FETCH_COMMENTS_BY_ID
+  SUCCESS_FETCH_COMMENTS_BY_ID,
+  SUCCESS_VOTE_FOR_COMMENT,
 } from '../actions/comments';
 
 import {
@@ -24,7 +26,7 @@ function comments(state={}, action) {
         ...state,
         [action.data.id]: action
       };
-    case VOTE_FOR_COMMENT:
+    case SUCCESS_VOTE_FOR_COMMENT:
       return {
         ...state,
         [action.data.id]: {
@@ -63,7 +65,11 @@ function comments(state={}, action) {
 
 const attemptingAndFailureReducers = getAllAttemptingAndFailureReducers([
   FETCH_COMMENTS_BY_ID,
-  FETCH_COMMENTS_BY_POST
+  FETCH_COMMENTS_BY_POST,
+  VOTE_FOR_COMMENT,
+  ADD_COMMENT,
+  EDIT_COMMENT,
+  DELETE_COMMENT
 ]);
 
 export default combineReducers({

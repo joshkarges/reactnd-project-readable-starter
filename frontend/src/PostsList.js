@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PostListElement from './PostListElement.js';
-import { postsFetchingActions } from './actions/posts';
-import { fetchCommentsByPost } from './actions/comments';
+import { fetchPostsWithCommentsActions } from './actions/posts';
 import _ from 'lodash';
 
 class PostsList extends Component {
@@ -45,12 +44,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchRelevantPosts: () => {
-      dispatch(postsFetchingActions[props.fetchAction](props.fetchOpts))
-      .then((posts) => {
-        posts.data.forEach(p => dispatch(fetchCommentsByPost({ id: p.id })))
-      })
-    }
+    fetchRelevantPosts: () => dispatch(fetchPostsWithCommentsActions[props.fetchAction](props.fetchOpts))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
