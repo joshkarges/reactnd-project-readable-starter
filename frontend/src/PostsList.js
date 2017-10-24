@@ -5,9 +5,6 @@ import { postsFetchingActions } from './actions/posts';
 import { fetchCommentsByPost } from './actions/comments';
 import _ from 'lodash';
 
-import './css/posts.css';
-import './css/input.css';
-
 class PostsList extends Component {
   state = {
     sortByKey: 'timestamp'

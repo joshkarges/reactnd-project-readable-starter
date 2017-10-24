@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchCategories } from './actions/categories';
 
-import './css/App.css';
-import './css/categories.css';
-
 class CategoriesList extends Component {
   componentDidMount() {
     this.props.fetchCategories();

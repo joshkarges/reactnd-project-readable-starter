@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import './css/App.css';
 import AllPostsView from './AllPostsView';
 import CategoryPostsView from './CategoryPostsView';
 import PostDetailsView from './PostDetailsView';

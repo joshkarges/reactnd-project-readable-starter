@@ -7,6 +7,7 @@ import {
   deletePost
 } from './actions/posts';
 import PostListElement from './PostListElement';
+import CommentListElement from './CommentListElement';
 
 class PostDetailsView extends Component {
   componentDidMount() {
@@ -25,6 +26,11 @@ class PostDetailsView extends Component {
         <div className="post-details-buttons">
           <button className="post-details-buttons-edit" onClick={this.props.editPost}>EDIT</button>
           <button className="post-details-buttons-delete" onClick={this.props.deletePost}>DELETE</button>
+        </div>
+        <div>
+          {this.props.commentsForPost.map((comment) => (
+            <CommentListElement comment={comment}/>
+          ))}
         </div>
       </div>
     );

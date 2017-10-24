@@ -3,8 +3,6 @@ import CategoriesList from './CategoriesList.js';
 import PostsList from './PostsList.js';
 import { FETCH_ALL_POSTS } from './actions/posts';
 
-import './css/App.css';
-
 class AllPostsView extends Component {
 
   render() {

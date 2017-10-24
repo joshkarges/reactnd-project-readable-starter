@@ -19,7 +19,7 @@ class PostListElement extends Component {
             <p>{new Date(this.props.post.timestamp).toString()}</p>
           </div>
         </Link>
-        <Voterator post={this.props.post}/>
+        <Voterator voteable={this.props.post} type="post"/>
       </div>
     );
   }
