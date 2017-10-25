@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PostListElement from './PostListElement.js';
 import { fetchPostsWithCommentsActions } from './actions/posts';
 import _ from 'lodash';
@@ -31,6 +32,9 @@ class PostsList extends Component {
         {_.map(_.sortBy(this.props.posts, this.state.sortByKey), (post) => (
           <PostListElement key={post.id} post={post}/>
         ))}
+        <Link to={"/newPost"} className="post-list-new-post-link post-list-element">
+        +
+        </Link>
       </div>
     );
   }

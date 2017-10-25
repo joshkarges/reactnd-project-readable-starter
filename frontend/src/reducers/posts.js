@@ -31,7 +31,7 @@ function posts(state={}, action) {
         ...state,
         [action.data.id]: {
           ...state[action.data.id],
-          deleted: true
+          deleted: action.data.deleted
         }
       };
     case SUCCESS_VOTE_FOR_POST:
@@ -66,7 +66,8 @@ const attemptingAndFailureReducers = getAllAttemptingAndFailureReducers([
     FETCH_ALL_POSTS,
     FETCH_POST_BY_ID,
     FETCH_POSTS_BY_CATEGORY,
-    VOTE_FOR_POST
+    VOTE_FOR_POST,
+    DELETE_POST
   ]);
 
 export default combineReducers({

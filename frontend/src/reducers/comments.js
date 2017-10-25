@@ -39,7 +39,7 @@ function comments(state={}, action) {
         ...state,
         [action.data.id]: {
           ...state[action.data.id],
-          deleted: true
+          deleted: action.data.deleted
         }
       };
     case DELETE_POST:
@@ -49,7 +49,7 @@ function comments(state={}, action) {
           ...state,
           [c.id]: {
             ...state[c.id],
-            parentDeleted: true
+            parentDeleted: c.parentDeleted
           }
         };
       }, state);
