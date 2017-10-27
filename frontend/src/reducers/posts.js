@@ -2,31 +2,31 @@ import _ from 'lodash';
 import { combineReducers } from 'redux';
 import { getAllAttemptingAndFailureReducers } from './util';
 import {
-  ADD_POST,
-  DELETE_POST,
-  EDIT_POST
-} from '../actions';
-
-import {
   FETCH_ALL_POSTS,
   FETCH_POST_BY_ID,
   FETCH_POSTS_BY_CATEGORY,
   VOTE_FOR_POST,
+  ADD_POST,
+  EDIT_POST,
+  DELETE_POST,
   SUCCESS_FETCH_ALL_POSTS,
   SUCCESS_FETCH_POST_BY_ID,
   SUCCESS_FETCH_POSTS_BY_CATEGORY,
-  SUCCESS_VOTE_FOR_POST
+  SUCCESS_VOTE_FOR_POST,
+  SUCCESS_ADD_POST,
+  SUCCESS_EDIT_POST,
+  SUCCESS_DELETE_POST
 } from '../actions/posts';
 
 function posts(state={}, action) {
   switch (action.type) {
     case SUCCESS_FETCH_POST_BY_ID:
-    case ADD_POST:
+    case SUCCESS_ADD_POST:
       return {
         ...state,
         [action.data.id]: action.data
       };
-    case DELETE_POST: // TODO: make sure the parentDeleted property is true for all the comments
+    case SUCCESS_DELETE_POST: // TODO: make sure the parentDeleted property is true for all the comments
       return {
         ...state,
         [action.data.id]: {
@@ -42,7 +42,7 @@ function posts(state={}, action) {
           voteScore: action.data.voteScore
         }
       };
-    case EDIT_POST:
+    case SUCCESS_EDIT_POST:
       return {
         ...state,
         [action.data.id]: {
@@ -67,6 +67,8 @@ const attemptingAndFailureReducers = getAllAttemptingAndFailureReducers([
     FETCH_POST_BY_ID,
     FETCH_POSTS_BY_CATEGORY,
     VOTE_FOR_POST,
+    ADD_POST,
+    EDIT_POST,
     DELETE_POST
   ]);
 

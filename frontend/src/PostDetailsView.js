@@ -1,10 +1,10 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   fetchPostsWithCommentsActions,
   FETCH_POST_BY_ID,
-  editPost,
   deletePost
 } from './actions/posts';
 import PostListElement from './PostListElement';
@@ -25,8 +25,8 @@ class PostDetailsView extends Component {
           </div>
         </div>
         <div className="post-details-buttons">
-          <button className="post-details-buttons-edit" onClick={this.props.editPost}>EDIT</button>
-          <button className="post-details-buttons-delete" onClick={this.props.deletePost}>DELETE</button>
+          <Link className="post-details-buttons-edit" to={`/${this.props.category}/${this.props.id}/edit`}>EDIT</Link>;
+          <Link className="post-details-buttons-delete" onClick={this.props.deletePost} to="/">DELETE</Link>
         </div>
         <div>
           {this.props.commentsForPost.map((comment) => (
@@ -49,7 +49,6 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     fetchPostById: () => dispatch(fetchPostsWithCommentsActions[FETCH_POST_BY_ID]({ id: props.match.params.post })),
-    editPost: () => dispatch(editPost(props)),
     deletePost: () => dispatch(deletePost({id: props.match.params.post}))
   };
 };

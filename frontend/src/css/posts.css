@@ -82,3 +82,12 @@
   border-radius: 50%;
   background: grey
 }
+
+.edit-post {
+  width: 100%;
+}
+
+.edit-post-form {
+  display: flex;
+  flex-direction: column;
+}

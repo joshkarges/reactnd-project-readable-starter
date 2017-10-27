@@ -27,17 +27,17 @@ export const { ATTEMPTING_VOTE_FOR_POST, SUCCESS_VOTE_FOR_POST, FAILURE_VOTE_FOR
 // ADD NEW POST
 export const ADD_POST = 'ADD_POST';
 const add_post_url = `${process.env.REACT_APP_BACKEND}/posts`;
-export const { ATTEMPTING_ADD_POST, SUCCESS_ADD_POST, FAILURE_ADD_POST, addPost } = getFetchingActionCreators(ADD_POST, add_post_url, 'POST'); // {id: [post.id], option: 'upVote'|'downVote'};
+export const { ATTEMPTING_ADD_POST, SUCCESS_ADD_POST, FAILURE_ADD_POST, addPost } = getFetchingActionCreators(ADD_POST, add_post_url, 'POST'); // {id: [post.id], ...post};
 
 // DELETE POST
 export const DELETE_POST = 'DELETE_POST';
 const delete_post_url = `${process.env.REACT_APP_BACKEND}/posts/:id`;
-export const { ATTEMPTING_DELETE_POST, SUCCESS_DELETE_POST, FAILURE_DELETE_POST, deletePost } = getFetchingActionCreators(DELETE_POST, delete_post_url, 'DELETE'); // {id: [post.id], option: 'upVote'|'downVote'};
+export const { ATTEMPTING_DELETE_POST, SUCCESS_DELETE_POST, FAILURE_DELETE_POST, deletePost } = getFetchingActionCreators(DELETE_POST, delete_post_url, 'DELETE'); // {id: [post.id]};
 
 // EDIT POST
 export const EDIT_POST = 'EDIT_POST';
 const edit_post_url = `${process.env.REACT_APP_BACKEND}/posts/:id`;
-export const { ATTEMPTING_EDIT_POST, SUCCESS_EDIT_POST, FAILURE_EDIT_POST, editPost } = getFetchingActionCreators(EDIT_POST, edit_post_url, 'PUT'); // {id: [post.id], option: 'upVote'|'downVote'};
+export const { ATTEMPTING_EDIT_POST, SUCCESS_EDIT_POST, FAILURE_EDIT_POST, editPost } = getFetchingActionCreators(EDIT_POST, edit_post_url, 'PUT'); // {id: [post.id], ...post};
 
 export const fetchPostsWithCommentsActions = {
   [FETCH_ALL_POSTS]: wrapFetchPostActionWithComments(fetchAllPosts),
