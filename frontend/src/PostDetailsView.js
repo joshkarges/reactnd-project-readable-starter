@@ -32,6 +32,9 @@ class PostDetailsView extends Component {
           {this.props.commentsForPost.map((comment) => (
             <CommentListElement key={comment.id} comment={comment}/>
           ))}
+          <Link to={`/${this.props.category}/${this.props.id}/newComment`} className="post-details-new-comment-link">
+          +
+          </Link>
         </div>
       </div>
     );
@@ -39,7 +42,7 @@ class PostDetailsView extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const commentsForPost = _.filter(state.comments.comments, ['parentId', props.match.params.post]);
+  const commentsForPost = _.filter(state.comments.comments, {'parentId': props.match.params.post, 'deleted': false});
   return {
     ...state.posts.posts[props.match.params.post],
     commentsForPost: commentsForPost

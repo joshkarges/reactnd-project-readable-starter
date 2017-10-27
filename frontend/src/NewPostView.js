@@ -7,14 +7,14 @@ import { fetchCategories } from './actions/categories';
 import { addPost } from './actions/posts';
 import v4 from 'uuid';
 
-class EditPostView extends Component {
+class NewPostView extends Component {
   componentDidMount() {
     this.props.fetchCategories();
   }
 
   handleSubmit = (evt) => {
     const values = serializeForm(evt.target.parentNode, { hash: true });
-    const newPost = _.extend({}, {
+    const newPost = _.extend({
       id: v4(),
       timestamp: Date.now()
     }, values);
@@ -65,4 +65,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPostView);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPostView);

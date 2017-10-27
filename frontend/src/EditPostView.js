@@ -9,7 +9,12 @@ import { fetchPostById, editPost } from './actions/posts';
 class EditPostView extends Component {
   componentDidMount() {
     this.props.fetchCategories()
-    .then(this.props.fetchPost);
+    .then(this.props.fetchPost)
+    .then((post) => {
+      document.getElementById("title-input").value = post.data.title;
+      document.getElementById("author-input").value = post.data.author;
+      document.getElementById("body-input").value = post.data.body;
+    });
   }
 
   handleSubmit = (evt) => {
@@ -19,21 +24,20 @@ class EditPostView extends Component {
   }
 
   render() {
-    const { title, author, body } = this.props.post;
     return (
       <div className="edit-post">
         <form className='edit-post-form'>
           <div className="edit-post-form-entry">
             <label className="edit-post-form-entry-label">Title:</label>
-            <input type="text" className="edit-post-form-input" name="title" value={title || ''} placeholder="title"></input>
+            <input id="title-input" type="text" className="edit-post-form-input" name="title" placeholder="title"></input>
           </div>
           <div className="edit-post-form-entry">
             <label className="edit-post-form-entry-label">Author:</label>
-            <input type="text" className="edit-post-form-input" name="author" value={author || ''} placeholder="author"></input>
+            <input id="author-input" type="text" className="edit-post-form-input" name="author" placeholder="author"></input>
           </div>
           <div className="edit-post-form-entry">
             <label className="edit-post-form-entry-label">Body:</label>
-            <textarea type="text" className="edit-post-form-input" name="body" value={body || ''} placeholder="body"></textarea>
+            <textarea id="body-input" type="text" className="edit-post-form-input" name="body" placeholder="body"></textarea>
           </div>
           <div className="edit-post-form-entry">
             <label className="edit-post-form-entry-label">Category</label>

@@ -50,10 +50,11 @@ function wrapFetchPostActionWithComments(fpa) {
       (dispatch)=>(
         dispatch(fpa(opts))
         .then((posts) => {
+          if (posts.failure) return;
           if (_.isArray(posts.data)) {
-            posts.data.forEach(p => dispatch(fetchCommentsByPost({ id: p.id })))
+            return posts.data.forEach(p => dispatch(fetchCommentsByPost({ id: p.id })))
           } else {
-            dispatch(fetchCommentsByPost({ id: posts.data.id }))
+            return dispatch(fetchCommentsByPost({ id: posts.data.id }))
           }
         })
       )

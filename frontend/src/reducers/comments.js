@@ -2,30 +2,41 @@ import _ from 'lodash';
 import { combineReducers } from 'redux';
 import {
   FETCH_COMMENTS_BY_POST,
-  FETCH_COMMENTS_BY_ID,
+  FETCH_COMMENT_BY_ID,
   ADD_COMMENT,
   VOTE_FOR_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
   SUCCESS_FETCH_COMMENTS_BY_POST,
-  SUCCESS_FETCH_COMMENTS_BY_ID,
+  SUCCESS_FETCH_COMMENT_BY_ID,
   SUCCESS_VOTE_FOR_COMMENT,
+  SUCCESS_ADD_COMMENT,
+  SUCCESS_EDIT_COMMENT,
+  SUCCESS_DELETE_COMMENT
 } from '../actions/comments';
 
 import {
-  DELETE_POST
+  SUCCESS_DELETE_POST
 } from '../actions/posts';
 
 import { getAllAttemptingAndFailureReducers } from './util';
 
 function comments(state={}, action) {
   switch (action.type) {
-    case SUCCESS_FETCH_COMMENTS_BY_ID:
-    case ADD_COMMENT:
+    case SUCCESS_FETCH_COMMENT_BY_ID:
+    case SUCCESS_ADD_COMMENT:
       return {
         ...state,
-        [action.data.id]: action
+        [action.data.id]: action.data
       };
+    case SUCCESS_EDIT_COMMENT:
+      return {
+        ...state,
+        [action.data.id]: {
+          ...state[action.data.id],
+          ...action.data
+        }
+      }
     case SUCCESS_VOTE_FOR_COMMENT:
       return {
         ...state,
@@ -34,7 +45,7 @@ function comments(state={}, action) {
           voteScore: action.data.voteScore
         }
       };
-    case DELETE_COMMENT:
+    case SUCCESS_DELETE_COMMENT:
       return {
         ...state,
         [action.data.id]: {
@@ -42,7 +53,7 @@ function comments(state={}, action) {
           deleted: action.data.deleted
         }
       };
-    case DELETE_POST:
+    case SUCCESS_DELETE_POST:
       let commentsFromParent = state.filter(c => (c.parentId === action.parentId));
       return commentsFromParent.reduce((p,c) => {
         return {
@@ -64,7 +75,7 @@ function comments(state={}, action) {
 }
 
 const attemptingAndFailureReducers = getAllAttemptingAndFailureReducers([
-  FETCH_COMMENTS_BY_ID,
+  FETCH_COMMENT_BY_ID,
   FETCH_COMMENTS_BY_POST,
   VOTE_FOR_COMMENT,
   ADD_COMMENT,
