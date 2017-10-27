@@ -18,6 +18,7 @@ class PostDetailsView extends Component {
   render() {
     return (
       <div className="post-details-view">
+        <Link to={`/${this.props.category}`}>BACK</Link>
         <div className="post-details-content">
           <PostListElement post={this.props}/>
           <div className="post-details-content-body">
