@@ -15,7 +15,7 @@ class EditPostView extends Component {
   handleSubmit = (evt) => {
     const values = serializeForm(evt.target.parentNode, { hash: true });
     const editedPost = _.extend({}, this.props.post, values);
-    if (this.props.editPost) this.props.editPost(editedPost);
+    this.props.editPost(editedPost);
   }
 
   render() {
