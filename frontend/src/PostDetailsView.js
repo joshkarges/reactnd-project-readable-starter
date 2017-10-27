@@ -25,7 +25,7 @@ class PostDetailsView extends Component {
           </div>
         </div>
         <div className="post-details-buttons">
-          <Link className="post-details-buttons-edit" to={`/${this.props.category}/${this.props.id}/edit`}>EDIT</Link>;
+          <Link className="post-details-buttons-edit" to={`/editPost/${this.props.id}`}>EDIT</Link>;
           <Link className="post-details-buttons-delete" onClick={this.props.deletePost} to="/">DELETE</Link>
         </div>
         <div>

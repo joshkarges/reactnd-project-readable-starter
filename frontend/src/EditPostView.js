@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import serializeForm from 'form-serialize';
 import { fetchCategories } from './actions/categories';
 import { fetchPostById, editPost } from './actions/posts';
@@ -12,25 +13,37 @@ class EditPostView extends Component {
   }
 
   handleSubmit = (evt) => {
-    evt.preventDefault();
-    const values = serializeForm(evt.target, { hash: true });
+    const values = serializeForm(evt.target.parentNode, { hash: true });
     const editedPost = _.extend({}, this.props.post, values);
     if (this.props.editPost) this.props.editPost(editedPost);
   }
 
   render() {
+    const { title, author, body } = this.props.post;
     return (
       <div className="edit-post">
-        <form onSubmit={this.handleSubmit} className='edit-post-form'>
-          <input type="text" name="title" placeholder="title"></input>
-          <input type="text" name="author" placeholder="author"></input>
-          <textarea type="text" name="body" placeholder="body"></textarea>
-          <select>
-            {this.props.categories.map((category) =>
-              <option value={category.name} key={category.path}>{category.name}</option>
-              )}
-          </select>
-          <button>Submit</button>
+        <form className='edit-post-form'>
+          <div className="edit-post-form-entry">
+            <label className="edit-post-form-entry-label">Title:</label>
+            <input type="text" className="edit-post-form-input" name="title" value={title || ''} placeholder="title"></input>
+          </div>
+          <div className="edit-post-form-entry">
+            <label className="edit-post-form-entry-label">Author:</label>
+            <input type="text" className="edit-post-form-input" name="author" value={author || ''} placeholder="author"></input>
+          </div>
+          <div className="edit-post-form-entry">
+            <label className="edit-post-form-entry-label">Body:</label>
+            <textarea type="text" className="edit-post-form-input" name="body" value={body || ''} placeholder="body"></textarea>
+          </div>
+          <div className="edit-post-form-entry">
+            <label className="edit-post-form-entry-label">Category</label>
+            <select className="edit-post-form-input" name="category" defaultValue={this.props.post.category}>
+              {this.props.categories.map((category) =>
+                <option value={category.path} key={category.path}>{category.name}</option>
+                )}
+            </select>
+          </div>
+          <Link className="edit-post-form-submit" onClick={this.handleSubmit} to={"/"}>Submit</Link>
         </form>
       </div>
     );
@@ -40,7 +53,7 @@ class EditPostView extends Component {
 const mapStateToProps = (state, props) => {
   return {
     categories: state.categories.categories,
-    post: state.posts.posts[props.match.params.post]
+    post: state.posts.posts[props.match.params.post] || {}
   };
 };
 
