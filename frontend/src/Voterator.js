@@ -6,7 +6,7 @@ import { voteForComment } from './actions/comments';
 class Voterator extends Component {
   render() {
     return (
-      <div className={"voterator " + this.props.className}>
+      <div className="voterator">
         <div className="voterator-plus" onClick={this.props[this.props.type].upVote}>
           +
         </div>

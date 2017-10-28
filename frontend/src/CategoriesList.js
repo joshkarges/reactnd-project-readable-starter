@@ -26,13 +26,8 @@ class CategoriesList extends Component {
   }
 };
 
-const mapStateToProps = (state) => {
-  return state.categories;
+const mapStateToProps = ({ categories }) => {
+  return categories;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchCategories: () => dispatch(fetchCategories())
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(CategoriesList);
+export default connect(mapStateToProps, { fetchCategories })(CategoriesList);

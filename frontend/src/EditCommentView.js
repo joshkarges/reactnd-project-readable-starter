@@ -42,10 +42,10 @@ class EditCommentView extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = ({ comments, posts }, props) => {
   return {
-    comment: state.comments.comments[props.match.params.comment] || {},
-    post: state.posts.posts[props.match.params.post] || {}
+    comment: comments.comments[props.match.params.comment] || {},
+    post: posts.posts[props.match.params.post] || {}
   };
 };
 

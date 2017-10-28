@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { fetchPostById } from './actions/posts';
 import { addComment } from './actions/comments';
 
-class EditCommentView extends Component {
+class NewCommentView extends Component {
   componentDidMount() {
     this.props.fetchPost();
   }
@@ -55,4 +55,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditCommentView);
+export default connect(mapStateToProps, mapDispatchToProps)(NewCommentView);
