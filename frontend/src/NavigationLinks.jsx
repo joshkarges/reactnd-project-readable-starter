@@ -6,7 +6,7 @@ class NavigationLinks extends Component {
   render() {
     return (
       <div className="navigation-links">
-        <div className="navigation-link" onClick={this.props.goBack}>BACK</div>
+        <div className="navigation-link" onClick={this.props.history.goBack}>BACK</div>
         <Link className="navigation-link" to="/">HOME</Link>
       </div>
     );

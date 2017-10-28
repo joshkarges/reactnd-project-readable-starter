@@ -13,7 +13,12 @@ import NavigationLinks from './NavigationLinks';
 
 class PostDetailsView extends Component {
   componentDidMount() {
-    this.props.fetchPostById();
+    this.props.fetchPostById()
+    .then((post)=>{
+      if (!post) {
+        this.props.history.push("/");
+      }
+    });
   }
 
   render() {

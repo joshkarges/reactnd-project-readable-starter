@@ -61,6 +61,10 @@
   flex-grow: 1;
 }
 
+.post-details-view {
+  width: 100%;
+}
+
 .voterator {
   display: flex;
   flex-direction: column;

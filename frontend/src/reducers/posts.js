@@ -22,6 +22,7 @@ function posts(state={}, action) {
   switch (action.type) {
     case SUCCESS_FETCH_POST_BY_ID:
     case SUCCESS_ADD_POST:
+      if (_.isEmpty(action.data)) return { ...state };
       return {
         ...state,
         [action.data.id]: action.data
