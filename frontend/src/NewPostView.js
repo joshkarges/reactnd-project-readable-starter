@@ -1,11 +1,12 @@
 import _ from 'lodash';
+import v4 from 'uuid';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import serializeForm from 'form-serialize';
 import { fetchCategories } from './actions/categories';
 import { addPost } from './actions/posts';
-import v4 from 'uuid';
+import NavigationLinks from './NavigationLinks';
 
 class NewPostView extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class NewPostView extends Component {
   render() {
     return (
       <div className="edit-post">
+        <NavigationLinks/>
         <form className='edit-post-form'>
           <div className="edit-post-form-entry">
             <label className="edit-post-form-entry-label">Title:</label>

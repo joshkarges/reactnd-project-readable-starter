@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import serializeForm from 'form-serialize';
 import { fetchCategories } from './actions/categories';
 import { fetchPostById, editPost } from './actions/posts';
+import NavigationLinks from './NavigationLinks';
 
 class EditPostView extends Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ class EditPostView extends Component {
   render() {
     return (
       <div className="edit-post">
+        <NavigationLinks/>
         <form className='edit-post-form'>
           <div className="edit-post-form-entry">
             <label className="edit-post-form-entry-label">Title:</label>

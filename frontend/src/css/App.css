@@ -30,3 +30,15 @@
   align-items: center;
   width: 100%;
 }
+
+.navigation-links {
+  display: flex;
+}
+
+.navigation-link {
+  margin: 1em;
+  padding: 0.5em;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: lightblue;
+}

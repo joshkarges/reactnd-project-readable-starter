@@ -9,6 +9,7 @@ import {
 } from './actions/posts';
 import PostListElement from './PostListElement';
 import CommentListElement from './CommentListElement';
+import NavigationLinks from './NavigationLinks';
 
 class PostDetailsView extends Component {
   componentDidMount() {
@@ -18,7 +19,7 @@ class PostDetailsView extends Component {
   render() {
     return (
       <div className="post-details-view">
-        <Link to={`/${this.props.category}`}>BACK</Link>
+        <NavigationLinks/>
         <div className="post-details-content">
           <PostListElement post={this.props}/>
           <div className="post-details-content-body">
