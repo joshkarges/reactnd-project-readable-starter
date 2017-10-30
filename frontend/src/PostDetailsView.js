@@ -13,33 +13,39 @@ import NavigationLinks from './NavigationLinks';
 
 class PostDetailsView extends Component {
   componentDidMount() {
-    this.props.fetchPostById()
-    .then((post)=>{
-      if (!post) {
-        this.props.history.push("/");
-      }
-    });
+    this.props.fetchPostById();
   }
 
   render() {
+    if (!this.props.post) {
+      return <p>Loading...</p>;
+    }
+    if (this.props.post.deleted) {
+      return (
+        <div>
+          <NavigationLinks/>
+          <p>404 Post Not Found</p>
+        </div>
+      );
+    }
     return (
       <div className="post-details-view">
         <NavigationLinks/>
         <div className="post-details-content">
-          <PostListElement post={this.props}/>
+          <PostListElement post={this.props.post}/>
           <div className="post-details-content-body">
-            <p>{this.props.body}</p>
+            <p>{this.props.post.body}</p>
           </div>
         </div>
         <div className="post-details-buttons">
-          <Link className="post-details-buttons-edit" to={`/editPost/${this.props.id}`}>EDIT</Link>;
+          <Link className="post-details-buttons-edit" to={`/editPost/${this.props.post.id}`}>EDIT</Link>;
           <Link className="post-details-buttons-delete" onClick={this.props.deletePost} to="/">DELETE</Link>
         </div>
         <div>
           {this.props.commentsForPost.map((comment) => (
             <CommentListElement key={comment.id} comment={comment}/>
           ))}
-          <Link to={`/${this.props.category}/${this.props.id}/newComment`} className="post-details-new-comment-link">
+          <Link to={`/${this.props.post.category}/${this.props.post.id}/newComment`} className="post-details-new-comment-link">
           +
           </Link>
         </div>
@@ -51,7 +57,7 @@ class PostDetailsView extends Component {
 const mapStateToProps = (state, props) => {
   const commentsForPost = _.filter(state.comments.comments, {'parentId': props.match.params.post, 'deleted': false});
   return {
-    ...state.posts.posts[props.match.params.post],
+    post: state.posts.posts[props.match.params.post],
     commentsForPost: commentsForPost
   };
 };

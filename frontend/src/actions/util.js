@@ -39,7 +39,7 @@ export function getFetchingActionCreators(name, url, method) {
           return response;
         })
         .then(response => response.json())
-        .then(data => dispatch(success.creator({ data })))
+        .then(data => dispatch(success.creator({ opts, data })))
         .catch((err) => {
           console.log(err)
           return dispatch(failure.creator({ failure: true }))

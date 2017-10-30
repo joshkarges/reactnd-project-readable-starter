@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PostsList from './PostsList.js';
 import { FETCH_POSTS_BY_CATEGORY } from './actions/posts';
-import NavigationLinks from './NavigationLinks';
 import CategoriesList from './CategoriesList.js';
 
 class CategoryPostsView extends Component {

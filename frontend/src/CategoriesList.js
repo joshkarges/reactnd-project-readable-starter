@@ -20,11 +20,12 @@ class CategoriesList extends Component {
         {this.props.categories.map((category) => {
           const onCategoryView = category.path === this.props.match.params.category;
           const toUrl = onCategoryView ? "/" : `/${category.path}`;
-          const linkName = onCategoryView ? "All" : category.name;
           const className = "categories-list-element" + (onCategoryView ? " categories-list-element-active" : "");
-          return <Link to={toUrl} className={className} key={category.name}>
-            {category.name}
-          </Link>
+          return (
+            <Link to={toUrl} className={className} key={category.name}>
+              {category.name}
+            </Link>
+          );
         })}
       </div>
     );
