@@ -54,7 +54,7 @@ function comments(state={}, action) {
         }
       };
     case SUCCESS_DELETE_POST:
-      let commentsFromParent = state.filter(c => (c.parentId === action.parentId));
+      let commentsFromParent = _.filter(state, (c) => (c.parentId === action.parentId));
       return commentsFromParent.reduce((p,c) => {
         return {
           ...state,

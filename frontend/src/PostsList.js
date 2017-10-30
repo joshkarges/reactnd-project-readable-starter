@@ -42,7 +42,7 @@ class PostsList extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    posts: _.filter(state.posts.posts, props.fetchOpts)
+    posts: _.filter(state.posts.posts, _.extend({deleted: false}, props.fetchOpts))
   };
 };
 

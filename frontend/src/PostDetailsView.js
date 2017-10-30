@@ -32,14 +32,10 @@ class PostDetailsView extends Component {
       <div className="post-details-view">
         <NavigationLinks/>
         <div className="post-details-content">
-          <PostListElement post={this.props.post}/>
+          <PostListElement post={this.props.post} redirectOnDelete={true}/>
           <div className="post-details-content-body">
             <p>{this.props.post.body}</p>
           </div>
-        </div>
-        <div className="post-details-buttons">
-          <Link className="post-details-buttons-edit" to={`/editPost/${this.props.post.id}`}>EDIT</Link>;
-          <Link className="post-details-buttons-delete" onClick={this.props.deletePost} to="/">DELETE</Link>
         </div>
         <div>
           {this.props.commentsForPost.map((comment) => (
